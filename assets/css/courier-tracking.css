@@ -1,0 +1,44 @@
+.courier-track-shell {
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(180deg, #f7fff9 0%, #ffffff 100%);
+}
+
+.courier-track-layout {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  gap: 16px;
+}
+
+#courierTrackingMap {
+  width: 100%;
+  min-height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #f5faf7;
+}
+
+.courier-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.courier-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+
+@media (min-width: 1100px) {
+  .courier-track-layout {
+    grid-template-columns: 420px 1fr;
+    align-items: start;
+  }
+
+  #courierTrackingMap {
+    min-height: 780px;
+  }
+}

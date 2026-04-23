@@ -1,0 +1,52 @@
+.page-shell {
+  padding: 88px 16px 100px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.checkout-layout {
+  display: grid;
+  gap: 16px;
+}
+
+.stack-area {
+  display: grid;
+  gap: 16px;
+}
+
+.address-card {
+  border: 1px solid #edf2ee;
+  border-radius: 20px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.address-form {
+  display: grid;
+  gap: 12px;
+}
+
+.address-form input,
+.address-form textarea,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 16px;
+  border: 1px solid #dfe8e2;
+  padding: 12px 14px;
+  background: #fff;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+@media (min-width: 992px) {
+  .checkout-layout {
+    grid-template-columns: 1fr 380px;
+    align-items: start;
+  }
+}

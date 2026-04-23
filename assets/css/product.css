@@ -1,0 +1,142 @@
+.page-shell {
+  padding: 88px 16px 100px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.product-detail {
+  display: grid;
+  gap: 18px;
+}
+
+.product-gallery {
+  background: #fff;
+  border-radius: 28px;
+  padding: 14px;
+  border: 1px solid #edf2ee;
+}
+
+.product-main-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 22px;
+  object-fit: cover;
+  background: #f8faf8;
+}
+
+.product-panel {
+  background: #fff;
+  border-radius: 28px;
+  padding: 20px;
+  border: 1px solid #edf2ee;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+}
+
+.product-panel h1 {
+  margin-top: 0;
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.price-main {
+  font-size: 28px;
+  font-weight: 900;
+  color: #15803d;
+}
+
+.price-old {
+  font-size: 16px;
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+.qty-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.qty-row input {
+  width: 90px;
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid #dfe8e2;
+  text-align: center;
+}
+
+.action-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+@media (min-width: 992px) {
+  .product-detail {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+  }
+}
+
+
+
+
+
+.product-review-layout {
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.product-review-box {
+  border-radius: 28px;
+}
+
+.review-form {
+  display: grid;
+  gap: 12px;
+}
+
+.review-form label {
+  display: grid;
+  gap: 8px;
+}
+
+.review-form select,
+.review-form textarea {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 16px;
+  border: 1px solid #dfe8e2;
+  padding: 12px 14px;
+}
+
+.review-card {
+  border: 1px solid #edf2ee;
+  border-radius: 18px;
+  padding: 14px;
+  background: #fff;
+  margin-top: 12px;
+}
+
+.review-card h4 {
+  margin: 0 0 6px;
+}
+
+.review-meta {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 1100px) {
+  .product-review-layout {
+    grid-template-columns: 1fr 420px;
+    align-items: start;
+  }
+}
