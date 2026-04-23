@@ -15,3 +15,76 @@
 .featured-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
 @media (max-width:1000px){.hero-card{grid-template-columns:1fr}.quick-grid,.featured-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media (max-width:640px){.home-shell{padding-left:12px;padding-right:12px}.quick-grid,.featured-grid{grid-template-columns:1fr}.hero-visual{min-height:220px}}
+
+
+
+/* ===== HOME SEARCH + CATEGORY CHIPS ===== */
+
+.home-search-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: var(--shadow-soft);
+}
+
+.home-search-bar {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.home-search-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  font-size: 14px;
+}
+
+/* === CHIP ROW === */
+.filter-chip-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px 2px 2px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-chip-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* === CHIP === */
+.filter-chip {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(22, 163, 74, 0.08);
+  color: #166534;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.filter-chip:hover {
+  background: #e5e7eb;
+}
+
+.filter-chip.active {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* === DESKTOP WRAP === */
+@media (min-width: 992px) {
+  .filter-chip-row {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+}
