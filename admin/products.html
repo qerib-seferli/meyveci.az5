@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Məhsullar | Admin</title>
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/lite.css" />
+  <link rel="stylesheet" href="../assets/css/admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta name="theme-color" content="#16a34a" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Meyvəçi.az" />
+<link rel="manifest" href="../manifest.webmanifest" />
+<link rel="apple-touch-icon" href="../assets/img/logo/Meyveci-logo.png" />
+</head>
+<body class="admin-page">
+  <div class="admin-shell">
+    <div id="adminSidebar"></div>
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div><h1>Məhsullar</h1></div>
+      </div>
+
+      <section class="admin-card">
+        <h2>Yeni məhsul</h2>
+        <form id="productForm" class="admin-form grid-2">
+          <input id="name" placeholder="Ad" required />
+          <select id="categoryId"></select>
+          <input id="price" type="number" step="0.01" placeholder="Qiymət" required />
+          <input id="oldPrice" type="number" step="0.01" placeholder="Köhnə qiymət" />
+          <input id="stockQuantity" type="number" placeholder="Stok" required />
+          <input id="unit" placeholder="Vahid" value="ədəd" />
+          <input id="sku" placeholder="SKU" />
+          <select id="status">
+            <option value="active">active</option>
+            <option value="draft">draft</option>
+            <option value="inactive">inactive</option>
+          </select>
+          <input id="imageFile" type="file" accept="image/*" />
+          <textarea id="shortDescription" placeholder="Qısa təsvir"></textarea>
+          <textarea id="description" placeholder="Tam təsvir"></textarea>
+          <label><input id="isFeatured" type="checkbox" /> Featured</label>
+          <button class="btn btn-primary" type="submit">Yadda saxla</button>
+        </form>
+      </section>
+
+      <section class="admin-card" style="margin-top:16px;">
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Ad</th>
+                <th>Kateqoriya</th>
+                <th>Qiymət</th>
+                <th>Stok</th>
+                <th>Status</th>
+                <th>Əməliyyat</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../assets/js/supabase.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/guards.js"></script>
+  <script src="../assets/js/admin-layout.js"></script>
+  <script src="../assets/js/admin-api.js"></script>
+  <script src="../assets/js/admin-products.js"></script>
+</body>
+</html>

@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard | Meyvəçi.az Admin</title>
+  <title>Sifarişlər | Meyvəçi.az Admin</title>
 
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/lite.css" />
   <link rel="stylesheet" href="../assets/css/admin.css" />
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <meta name="theme-color" content="#16a34a" />
 <meta name="mobile-web-app-capable" content="yes" />
@@ -21,21 +20,30 @@
 <body class="admin-page">
   <div class="admin-shell">
     <div id="adminSidebar"></div>
-
     <main class="admin-main">
       <div class="admin-topbar">
         <div>
-          <h1>Dashboard</h1>
-          <p>Layihənin ümumi statistikası</p>
+          <h1>Sifarişlər</h1>
+          <p>Bütün sifarişləri idarə et</p>
         </div>
-        <button id="logoutBtn" class="btn btn-soft">Çıxış</button>
       </div>
 
-      <section id="statsGrid" class="admin-cards"></section>
-
-      <section class="admin-card" style="margin-top:16px;">
-        <h2>Sifariş vəziyyətləri</h2>
-        <div id="ordersStateBox"></div>
+      <section class="admin-card">
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Kod</th>
+                <th>İstifadəçi</th>
+                <th>Status</th>
+                <th>Ödəniş</th>
+                <th>Məbləğ</th>
+                <th>Əməliyyat</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody"></tbody>
+          </table>
+        </div>
       </section>
     </main>
   </div>
@@ -45,6 +53,6 @@
   <script src="../assets/js/guards.js"></script>
   <script src="../assets/js/admin-layout.js"></script>
   <script src="../assets/js/admin-api.js"></script>
-  <script src="../assets/js/admin-index.js"></script>
+  <script src="../assets/js/admin-orders.js"></script>
 </body>
 </html>
