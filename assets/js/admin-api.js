@@ -1,1 +1,67 @@
-
+const AdminAPI = {
+  slugify(value=''){ return String(value || '').toLowerCase().replace(/ə/g,'e').replace(/ö/g,'o').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ç/g,'c').replace(/ı/g,'i').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'') || `item-${Date.now()}`; },
+  async getDashboardStats() {
+    const [productsRes, ordersCountRes, usersRes, couriersRes, paymentsCountRes, recentOrdersRes, recentPaymentsRes] = await Promise.all([
+      supabaseClient.from('products').select('id', { count: 'exact', head: true }),
+      supabaseClient.from('orders').select('id', { count: 'exact', head: true }),
+      supabaseClient.from('profiles').select('id', { count: 'exact', head: true }),
+      supabaseClient.from('couriers').select('id,user_id,is_online,total_deliveries', { count: 'exact' }).limit(50),
+      supabaseClient.from('payments').select('id', { count: 'exact', head: true }),
+      supabaseClient.from('orders').select('id,status').order('created_at', { ascending: false }).limit(200),
+      supabaseClient.from('payments').select('id,amount,status').order('created_at', { ascending: false }).limit(200)
+    ]);
+    return {
+      data: {
+        products: productsRes.count || 0,
+        orders: ordersCountRes.count || 0,
+        users: usersRes.count || 0,
+        couriers: couriersRes.count || 0,
+        payments: paymentsCountRes.count || 0,
+        ordersRaw: recentOrdersRes.data || [],
+        couriersRaw: couriersRes.data || [],
+        paymentsRaw: recentPaymentsRes.data || []
+      },
+      error: productsRes.error || ordersCountRes.error || usersRes.error || couriersRes.error || paymentsCountRes.error || recentOrdersRes.error || recentPaymentsRes.error
+    };
+  },
+  async getOrders() { const { data, error } = await supabaseClient.from('orders').select('id,order_code,user_id,address_id,courier_id,status,payment_status,total_amount,created_at').order('created_at', { ascending: false }).limit(100); if(error) return { data: null, error }; const userIds=[...new Set((data||[]).map(x=>x.user_id).filter(Boolean))]; const addressIds=[...new Set((data||[]).map(x=>x.address_id).filter(Boolean))]; const courierIds=[...new Set((data||[]).map(x=>x.courier_id).filter(Boolean))]; const [profilesRes, addressesRes, couriersRes] = await Promise.all([ userIds.length ? supabaseClient.from('profiles').select('id,first_name,last_name,email,phone').in('id', userIds) : Promise.resolve({data:[]}), addressIds.length ? supabaseClient.from('addresses').select('id,address_line').in('id', addressIds) : Promise.resolve({data:[]}), courierIds.length ? this.getCouriersByIds(courierIds) : Promise.resolve({data:[]}) ]); const profiles = new Map((profilesRes.data||[]).map(x=>[x.id,x])); const addresses = new Map((addressesRes.data||[]).map(x=>[x.id,x])); const couriers = new Map((couriersRes.data||[]).map(x=>[x.id,x])); return { data: (data||[]).map(item=>({ ...item, profiles: profiles.get(item.user_id)||null, addresses: addresses.get(item.address_id)||null, courier: couriers.get(item.courier_id)||null })), error: null }; },
+  async getOrderById(id) { const { data, error } = await supabaseClient.from('orders').select(`*, addresses:address_id (*), order_items (*)`).eq('id', id).single(); if(error || !data) return { data, error }; const [profileRes, courierRes, paymentRes] = await Promise.all([ data.user_id ? supabaseClient.from('profiles').select('*').eq('id', data.user_id).maybeSingle() : Promise.resolve({data:null}), data.courier_id ? this.getCourierById(data.courier_id) : Promise.resolve({data:null}), supabaseClient.from('payments').select('*').eq('order_id', id).order('created_at', {ascending:false}) ]); return { data: { ...data, profiles: profileRes.data || null, courier: courierRes.data || null, payments: paymentRes.data || [] }, error: null }; },
+  async updateOrder(id, payload) { return await supabaseClient.from('orders').update(payload).eq('id', id); },
+  async getProducts() { return await supabaseClient.from('products').select(`id,category_id,name,slug,price,old_price,stock_quantity,unit,image_url,is_featured,status,created_at,categories:category_id (id, name, slug)`).order('created_at', { ascending: false }).limit(150); },
+  async createProduct(payload) { return await supabaseClient.from('products').insert(payload).select().single(); },
+  async updateProduct(id, payload) { return await supabaseClient.from('products').update(payload).eq('id', id); },
+  async deleteProduct(id) { return await supabaseClient.from('products').delete().eq('id', id); },
+  async getCategories() { return await supabaseClient.from('categories').select('*').order('sort_order', { ascending: true }).order('name', {ascending:true}); },
+  async createCategory(payload) { return await supabaseClient.from('categories').insert(payload).select().single(); },
+  async updateCategory(id, payload) { return await supabaseClient.from('categories').update(payload).eq('id', id); },
+  async deleteCategory(id) { return await supabaseClient.from('categories').delete().eq('id', id); },
+  async getUsers() { return await supabaseClient.from('profiles').select('id,first_name,last_name,email,phone,role,is_active,avatar_url,created_at').order('created_at', { ascending: false }).limit(150); },
+  async getEligibleCourierUsers() { return await supabaseClient.from('profiles').select('id,first_name,last_name,email,phone,role,is_active').in('role', ['user','courier']).order('created_at', { ascending: false }).limit(300); },
+  async updateUser(id, payload) { return await supabaseClient.from('profiles').update(payload).eq('id', id); },
+  async getCouriers() { const { data, error } = await supabaseClient.from('couriers').select('id,user_id,vehicle_type,vehicle_plate,is_online,total_deliveries,is_active,created_at').order('created_at', { ascending: false }).limit(150); if(error) return { data:null, error }; const ids = [...new Set((data||[]).map(item=>item.user_id).filter(Boolean))]; const { data: profiles } = ids.length ? await supabaseClient.from('profiles').select('id,first_name,last_name,email,phone,avatar_url,is_active,role').in('id', ids) : { data: [] }; const profileMap = new Map((profiles||[]).map(item=>[item.id,item])); return { data: (data||[]).map(item=>({ ...item, profiles: profileMap.get(item.user_id) || null })), error:null }; },
+  async getCouriersByIds(ids){ const { data, error } = await supabaseClient.from('couriers').select('*').in('user_id', ids); if(error) return {data:null,error}; const profileIds = [...new Set((data||[]).map(item=>item.user_id).filter(Boolean))]; const { data: profiles } = profileIds.length ? await supabaseClient.from('profiles').select('id,first_name,last_name,email,phone,avatar_url,is_active,role').in('id', profileIds) : { data: [] }; const map = new Map((profiles||[]).map(x=>[x.id,x])); return { data:(data||[]).map(item=>({...item, id:item.user_id, courier_row_id:item.id, profiles: map.get(item.user_id)||null})), error:null }; },
+  async getCourierById(id){ const res = await this.getCouriersByIds([id]); return { data: res.data?.[0] || null, error: res.error || null }; },
+  async createCourier(payload) { return await supabaseClient.from('couriers').upsert(payload,{onConflict:'user_id'}).select().single(); },
+  async updateCourier(id, payload) { return await supabaseClient.from('couriers').update(payload).eq('user_id', id); },
+  async deleteCourier(id) { return await supabaseClient.from('couriers').delete().eq('user_id', id); },
+  async getPayments() { const { data, error } = await supabaseClient.from('payments').select('id,order_id,provider,status,amount,receipt_url,transaction_ref,created_at').order('created_at', { ascending: false }).limit(150); if(error) return { data:null, error }; const orderIds=[...new Set((data||[]).map(x=>x.order_id).filter(Boolean))]; const ordersRes = orderIds.length ? await supabaseClient.from('orders').select('id,order_code,user_id').in('id', orderIds) : { data: [] }; const userIds=[...new Set((ordersRes.data||[]).map(x=>x.user_id).filter(Boolean))]; const profilesRes = userIds.length ? await supabaseClient.from('profiles').select('id,first_name,last_name,email').in('id', userIds) : { data: [] }; const orderMap = new Map((ordersRes.data||[]).map(x=>[x.id,x])); const profileMap = new Map((profilesRes.data||[]).map(x=>[x.id,x])); return { data:(data||[]).map(item=>({ ...item, orders: orderMap.get(item.order_id)||null, profiles: profileMap.get(orderMap.get(item.order_id)?.user_id)||null })), error:null }; },
+  async updatePayment(id, payload) { return await supabaseClient.from('payments').update(payload).eq('id', id); },
+  async getReviews() { return await supabaseClient.from('reviews').select(`*, products:product_id (id, name, slug), profiles:user_id (id, first_name, last_name, email)`).order('created_at', { ascending: false }); },
+  async updateReview(id, payload) { return await supabaseClient.from('reviews').update(payload).eq('id', id); },
+  async deleteReview(id) { return await supabaseClient.from('reviews').delete().eq('id', id); },
+  async getBanners() { return await supabaseClient.from('banners').select('*').order('sort_order', { ascending: true }); },
+  async createBanner(payload) { return await supabaseClient.from('banners').insert(payload).select().single(); },
+  async updateBanner(id, payload) { return await supabaseClient.from('banners').update(payload).eq('id', id); },
+  async deleteBanner(id) { return await supabaseClient.from('banners').delete().eq('id', id); },
+  async getNews() { return await supabaseClient.from('news').select('*').order('created_at', { ascending: false }); },
+  async createNews(payload) { return await supabaseClient.from('news').insert(payload).select().single(); },
+  async updateNews(id, payload) { return await supabaseClient.from('news').update(payload).eq('id', id); },
+  async deleteNews(id) { return await supabaseClient.from('news').delete().eq('id', id); },
+  async getPartners() { return await supabaseClient.from('partners').select('*').order('sort_order', { ascending: true }); },
+  async createPartner(payload) { return await supabaseClient.from('partners').insert(payload).select().single(); },
+  async updatePartner(id, payload) { return await supabaseClient.from('partners').update(payload).eq('id', id); },
+  async deletePartner(id) { return await supabaseClient.from('partners').delete().eq('id', id); },
+  async getSettings() { return await supabaseClient.from('site_settings').select('*').order('setting_key', { ascending: true }); },
+  async updateSetting(id, payload) { return await supabaseClient.from('site_settings').update(payload).eq('id', id); },
+  async uploadFile(bucket, file, fileNamePrefix = 'file') { const ext = file.name.split('.').pop(); const filePath = `${Date.now()}-${fileNamePrefix}.${ext}`; const { error } = await supabaseClient.storage.from(bucket).upload(filePath, file, { upsert: true }); if (error) return { data: null, error }; const { data } = supabaseClient.storage.from(bucket).getPublicUrl(filePath); return { data: data.publicUrl, error: null }; }
+};
