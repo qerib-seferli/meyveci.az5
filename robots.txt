@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://meyveci.az/sitemap.xml
+Sitemap: https://meyveci.az/sitemap-products.xml
+Sitemap: https://meyveci.az/sitemap-news.xml

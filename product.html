@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="az"><head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Məhsul | Meyvəçi.az</title>
+<meta name="description" content="Meyvəçi.az məhsul detal səhifəsi" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#16a34a" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Meyvəçi.az" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./assets/img/logo/Meyveci-logo.png" />
+<link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/lite.css" />
+<link rel="stylesheet" href="./assets/css/product.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head><body>
+<div id="header"></div>
+<main class="page-shell">
+  <section id="productDetail" class="product-detail-wrap"></section>
+  <div class="product-review-layout">
+    <section class="product-review-box card"><h2>Məhsul rəyləri</h2><div id="reviewSummary"></div><div id="reviewsList"></div></section>
+    <section class="product-review-box card"><h2>Rəy yaz</h2><form id="reviewForm" class="review-form"><label><span>Qiymətləndirmə</span><select id="reviewRating" required><option value="">Seç</option><option value="5">5 ulduz</option><option value="4">4 ulduz</option><option value="3">3 ulduz</option><option value="2">2 ulduz</option><option value="1">1 ulduz</option></select></label><label><span>Rəy mətni</span><textarea id="reviewText" placeholder="Məhsul haqqında fikrini yaz"></textarea></label><button type="submit" class="btn btn-primary">Rəyi göndər</button></form><p id="reviewHint" class="muted" style="margin-top:12px;"></p></section>
+  </div>
+</main>
+<div id="bottomNav"></div>
+  <script src="./assets/js/supabase.js"></script>
+  <script src="./assets/js/components.js"></script>
+  <script src="./assets/js/auth.js"></script>
+  <script src="./assets/js/guards.js"></script>
+  <script src="./assets/js/user-api.js"></script>
+  <script src="./assets/js/commerce-api.js"></script>
+  <script src="./assets/js/ui-feedback.js"></script>
+  <script src="./assets/js/app-lite.js"></script>
+  <script src="./assets/js/product.js"></script>
+</body></html>

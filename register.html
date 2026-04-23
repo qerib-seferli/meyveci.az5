@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qeydiyyat | Meyvəçi.az</title>
+
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/lite.css" />
+  <link rel="stylesheet" href="./assets/css/login.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta name="theme-color" content="#16a34a" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Meyvəçi.az" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./assets/img/logo/Meyveci-logo.png" />
+</head>
+<body class="auth-page">
+  <main class="auth-layout">
+    <section class="auth-card">
+      <div class="auth-brand">
+        <img src="./assets/img/logo/Meyveci-logo.png" alt="Meyvəçi.az" class="auth-logo" />
+        <h1>Yeni hesab yarat</h1>
+        <p>Meyvəçi.az ailəsinə qoşul</p>
+      </div>
+
+      <div id="authMessage" class="auth-message hidden"></div>
+
+      <form id="registerForm" class="auth-form">
+        <label>
+          <span>Ad</span>
+          <input type="text" id="firstName" required />
+        </label>
+
+        <label>
+          <span>Soyad</span>
+          <input type="text" id="lastName" required />
+        </label>
+
+        <label>
+          <span>Telefon</span>
+          <input type="tel" id="phone" />
+        </label>
+
+        <label>
+          <span>Email</span>
+          <input type="email" id="email" required />
+        </label>
+
+        <label>
+          <span>Şifrə</span>
+          <input type="password" id="password" minlength="6" required />
+        </label>
+
+        <button type="submit" class="btn btn-primary btn-full">Qeydiyyatdan keç</button>
+      </form>
+
+      <div class="auth-links">
+        <a href="./login.html">Artıq hesabım var</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="./assets/js/supabase.js"></script>
+  <script src="./assets/js/auth.js"></script>
+  <script src="./assets/js/register.js"></script>
+<script src="./assets/js/ui-feedback.js"></script>
+</body>
+</html>

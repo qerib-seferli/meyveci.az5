@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracking | Meyvəçi.az</title>
+
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/lite.css" />
+  <link rel="stylesheet" href="./assets/css/tracking.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<meta name="theme-color" content="#16a34a" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Meyvəçi.az" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./assets/img/logo/Meyveci-logo.png" />
+</head>
+<body>
+  <div id="header"></div>
+
+  <main class="tracking-shell">
+    <section class="tracking-layout">
+      <div class="tracking-map-wrap card">
+        <div id="trackingMap"></div>
+      </div>
+
+      <aside class="tracking-sidebar">
+        <section class="card">
+          <h1>Sifariş tracking</h1>
+          <div id="trackingSummary">Yüklənir...</div>
+        </section>
+
+        <section class="card">
+          <h2>Mərhələlər</h2>
+          <div id="statusTimeline" class="status-timeline"></div>
+        </section>
+
+        <section class="card">
+          <h2>Çatdırılma məlumatı</h2>
+          <div id="trackingMeta"></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <div id="bottomNav"></div>
+
+  <script src="./assets/js/supabase.js"></script>
+  <script src="./assets/js/components.js"></script>
+  <script src="./assets/js/app-lite.js"></script>
+  <script src="./assets/js/auth.js"></script>
+  <script src="./assets/js/guards.js"></script>
+  <script src="./assets/js/tracking-api.js"></script>
+  <script src="./assets/js/tracking.js"></script>
+<script src="./assets/js/chat-api.js"></script>
+<script src="./assets/js/ui-feedback.js"></script>
+
+
+
+</body>
+</html>

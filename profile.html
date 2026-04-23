@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="az"><head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profil | Meyvəçi.az</title>
+<meta name="description" content="Meyvəçi.az profil səhifəsi" />
+<meta name="theme-color" content="#16a34a" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Meyvəçi.az" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./assets/img/logo/Meyveci-logo.png" />
+<link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/lite.css" />
+<link rel="stylesheet" href="./assets/css/profile.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head><body>
+<div id="header"></div>
+<main class="profile-shell">
+  <section class="profile-grid">
+    <aside class="card profile-card" id="profileSidebar"></aside>
+    <section class="card profile-card">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;">
+        <div><h1 style="margin:0;">Profil</h1><p class="muted" style="margin:6px 0 0;">Hesab məlumatların burada görünür.</p></div>
+        <button id="logoutBtn" class="btn btn-primary">Çıxış</button>
+      </div>
+      <div id="profileBox"></div>
+    </section>
+  </section>
+</main>
+<div id="bottomNav"></div>
+  <script src="./assets/js/supabase.js"></script>
+  <script src="./assets/js/components.js"></script>
+  <script src="./assets/js/auth.js"></script>
+  <script src="./assets/js/guards.js"></script>
+  <script src="./assets/js/ui-feedback.js"></script>
+  <script src="./assets/js/app-lite.js"></script>
+  <script src="./assets/js/profile.js"></script>
+</body></html>

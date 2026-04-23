@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Meyvəçi.az | Təzə məhsullar qapına qədər</title>
+  <meta name="description" content="Meyvəçi.az premium grocery marketplace və delivery platformasıdır. Təzə məhsulları sürətli sifariş et." />
+  <meta name="keywords" content="meyvə, tərəvəz, market, delivery, grocery, Bakı, online market, Meyvəçi.az" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#16a34a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Meyvəçi.az" />
+  <meta name="application-name" content="Meyvəçi.az" />
+
+  <link rel="canonical" href="https://meyveci.az/" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./assets/img/logo/Meyveci-logo.png" />
+  <link rel="icon" type="image/png" href="./assets/img/logo/Meyveci-logo.png" />
+
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/lite.css" />
+  <link rel="stylesheet" href="./assets/css/index.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  
+  <div id="header"></div>
+
+  <main class="home-shell">
+    <section class="hero-card card-xl">
+      <div class="hero-copy">
+        <span class="chip">Meyvəçi.az • sürətli və sadə sifariş</span>
+        <h1>Təzə məhsulları rahat axtar, seç və sifariş et.</h1>
+        <p>Ayrı kataloq və axtarış səhifələri olmadan, bütün əsas seçimlər ana səhifədə toplandı.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#homeSearch">Məhsul axtar</a>
+          <a class="btn btn-soft" href="./orders.html">Sifarişlərim</a>
+        </div>
+      </div>
+      <div class="hero-visual"><img src="./assets/img/logo/Cilek-logo.png" alt="Meyvəçi.az" /></div>
+    </section>
+
+    <section id="homeSearch" class="home-search-card">
+      <div class="section-head"><div><h2>Axtarış və kateqoriya</h2><p class="muted">Məhsulları burada axtar və kateqoriya üzrə filtrlə.</p></div></div>
+      <div class="home-search-bar">
+        <input id="homeSearchInput" type="search" placeholder="Məhsul adı ilə axtar..." />
+        <button id="clearHomeFilters" class="btn btn-soft" type="button">Sıfırla</button>
+      </div>
+      <div id="homeCategoryChips" class="filter-chip-row"></div>
+    </section>
+
+    <section class="home-grid-2">
+      <div class="home-section-card">
+        <div class="section-head"><div><h2>Məhsullar</h2><p class="muted">Sürətli baxış üçün limitli yüklənir.</p></div></div>
+        <div id="featuredProducts" class="home-product-grid"></div>
+        <div style="margin-top:14px;display:flex;justify-content:center;"><button id="loadMoreHomeProducts" type="button" class="btn btn-outline">Daha çox göstər</button></div>
+      </div>
+      <div style="display:grid;gap:16px;align-content:start;">
+        <section class="home-section-card">
+          <div class="section-head"><div><h2>Bannerlər</h2><p class="muted">Qısa elanlar və kampaniyalar.</p></div></div>
+          <div id="homeBanners" class="banner-list"></div>
+        </section>
+        <section class="home-section-card">
+          <div class="section-head"><div><h2>Xəbərlər</h2><p class="muted">Ən son yeniliklər.</p></div></div>
+          <div id="homeNews" class="news-list"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div id="bottomNav"></div>
+  <script src="./assets/js/supabase.js"></script>
+  <script src="./assets/js/components.js"></script>
+  <script src="./assets/js/auth.js"></script>
+  <script src="./assets/js/guards.js"></script>
+  <script src="./assets/js/user-api.js"></script>
+  <script src="./assets/js/ui-feedback.js"></script>
+  <script src="./assets/js/app-lite.js"></script>
+  <script src="./assets/js/index.js"></script>
+</body>
+</html>
